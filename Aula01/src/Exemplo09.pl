@@ -2,6 +2,14 @@
 Cab  - cabeça da lista
 Cau  - Cauda dalista
 Elem - Elemento da lista
+--------------------------
+modo - forma de chamada do programa
+<arg-i> = + sempre deve ser instanciado
+<arg-i> = - deve ser uma variavel livre
+<arg-i> = ? pode ser valor instanciado ou variavel livre
+-----------------
+ex: modo(+,-)
+
 */
 
 exibe([]) :- nl.
@@ -57,19 +65,26 @@ obter_sublista_by_index([Cab|Cau], L, [X|Y]) :-
 	find_by_index(Cab, X, L),
 	obter_sublista_by_index(Cau, L, Y).
 
-remover_elemento(_,[],[]).
-remover_elemento(Elem, [Elem|Cau], L) :- 
-	remover_elemento(Elem, Cau, L).
-remover_elemento(Elem, [Elem1|Cau], [Elem1|Cau1]) :-
-	Elem \== Elem1,
+remover_elemento(Elem, [Elem|Cau], Cau).
+remover_elemento(Elem, [Elem1|Cau], [Elem1|Cau1]) :- 
 	remover_elemento(Elem, Cau, Cau1).
+	
+remover_all_elementos(_,[],[]).
+remover_all_elementos(Elem, [Elem|Cau], L) :- 
+	remover_all_elementos(Elem, Cau, L).
+remover_all_elementos(Elem, [Elem1|Cau], [Elem1|Cau1]) :-
+	Elem \== Elem1,
+	remover_all_elementos(Elem, Cau, Cau1).
 
 inserir_inicio(Elem, Lista, [Elem|Lista]).
 			
 inserir_final([], Elem, [Elem]).         
 inserir_final([Cab|Cau], Elem, [Cab|Cau1]) :- 
     inserir_final(Cau, Elem, Cau1).  	
-    
+
+inserir_aleatoriamente(Elem, Lista, Lista1) :- 
+	remover_elemento(Elem, Lista1, Lista).  
+   
 alterar_elemento(_,_, [], []).
 alterar_elemento(Elem_sai,Elem_entra, [Elem_sai|Cau], [Elem_entra|Cau1]) :-
 	alterar_elemento(Elem_sai, Elem_entra,Cau,Cau1).
@@ -86,11 +101,15 @@ inverter(Lista, Lista_inv) :- invert(Lista, [], Lista_inv).
 invert([], Lista, Lista).
 invert([Elem|Cau], Lista_int, Lista_inv) :- invert(Cau, [Elem|Lista_int], Lista_inv).    
 
+permutar_listas([],[]).
+permutar_listas([Elem|Cau], Lista) :- 
+	permutar_listas(Cau,Cau1),
+	inserir_aleatoriamente(Elem, Cau1, Lista).
 
 comparar_listas([],[]).
 comparar_listas([Cab|Cau], Cau1) :- 
 	remover_aux(Cab, Cau1, Cau3),
-	comparar_listas(Cau, Cau3).
+	comparar_listas(Cau, Cau3).	
 remover_aux(X, [X|Y],Y).
 remover_aux(X, [_|Cau], [_|Cau1]) :- 
 	remover_aux(X, Cau, Cau1).
@@ -107,4 +126,15 @@ encontrar_diffs(Lista1, Lista2, Result) :-
 	findall(X, (pertence(X,Lista1), not(pertence(X, Lista2))), Result1),
 	findall(Y, (pertence(Y,Lista2), not(pertence(Y, Lista1))), Result2),	
 	concatenar(Result1, Result2, Result).
-	    
+
+
+ordenar_simple(Lista, Lista_ord) :- 
+	permutar_listas(Lista,Lista_ord),
+	ordenada(Lista_ord), !.	    
+ordenada([_]).
+ordenada([X,Y|Z]) :-
+	maior(Y,X),
+	ordenada([Y|Z]).
+maior(X,Y):-X>Y.
+
+	
