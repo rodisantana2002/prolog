@@ -25,6 +25,3 @@ inserir_final([], Y, [Y]).
 inserir_final([I|R], Y, [I|R1]) :- 
     inserir_final(R, Y, R1).  	
 	
-
-
-	
