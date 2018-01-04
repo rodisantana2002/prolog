@@ -48,7 +48,7 @@ min([Elem,Y|Cau], Min) :-
 	Elem =< Y, 
 	!,
 	min([Elem|Cau], Min).
-min([_,Y|Cau], Min) :- max([Y|Cau], Min).	
+min([_,Y|Cau], Min) :- min([Y|Cau], Min).	
 
 soma([], 0).
 soma([Elem|Cau], S) :- 
@@ -137,4 +137,20 @@ ordenada([X,Y|Z]) :-
 	ordenada([Y|Z]).
 maior(X,Y):-X>Y.
 
+num_combinacoes(_, 0, 1) :-!.
+num_combinacoes(N, N, 1) :-!.
+num_combinacoes(N, R, Num) :-
+	N > R,
+	N1 is N - 1,
+	R1 is R - 1,
+	num_combinacoes(N1, R1, Parcela1),
+	num_combinacoes(N1, R, Parcela2),
+	Num is Parcela1 + Parcela2.
+
+combinacoes(0,[],[]).
+combinacoes(R,Lista,[Elem|T]) :-		
+	R1 is R - 1,
+	concatenar(_, [Elem|Resto], Lista),
+	combinacoes(R1, Resto, T).	
+	
 	

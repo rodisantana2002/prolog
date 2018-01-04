@@ -11,10 +11,12 @@ ligado(b,f,25).
 ligado(b,e,5).
 ligado(d,f,25).
 
-% anexa(A,B,C): A anexado com B dá C
-anexa([], B, B).
-anexa([X|A], B, [X|C]) :- anexa(A, B, C).
-
+min([Elem], Elem).
+min([Elem,Y|Cau], Min) :- 
+	Elem =< Y, 
+	!,
+	min([Elem|Cau], Min).
+min([_,Y|Cau], Min) :- min([Y|Cau], Min).	
 
 rota(X,Y,Km) :- ligado(X,Y,Km).
 rota(X,Y,Km) :- ligado(X,Z,C1),        
@@ -25,3 +27,4 @@ inserir_final([], Y, [Y]).
 inserir_final([I|R], Y, [I|R1]) :- 
     inserir_final(R, Y, R1).  	
 	
+exibe(Inicio, Termino, Km) :- findall(X, rota(Inicio, Termino, X), Result), min(Result, Km).
