@@ -1,30 +1,28 @@
+/*
+*/
+:-include('/Users/rodolfosmac/Documents/Projetos/Prolog/Aula01/src/helpers/hlpListas.pl').
+:-include('/Users/rodolfosmac/Documents/Projetos/Prolog/Aula01/src/bd/bdLocalizacao.pl').
 
-ligado(a,b,5).
-ligado(a,c,10).
-ligado(a,g,75).
-ligado(c,d,10).
-ligado(d,g,15).
-ligado(d,e,5).
-ligado(g,f,20).
-ligado(e,f,5).
-ligado(b,f,25).
-ligado(b,e,5).
-ligado(d,f,25).
 
-min([Elem], Elem).
-min([Elem,Y|Cau], Min) :- 
-	Elem =< Y, 
-	!,
-	min([Elem|Cau], Min).
-min([_,Y|Cau], Min) :- min([Y|Cau], Min).	
+%modo(+,+,?,?)
+caminho(Ini, Fim, Dist, Cam) :- 
+	caminho_aux(Ini, [Fim], 0, Dist, Cam).	
+caminho_aux(Cid, [Cid|Cids], Dist, Dist, [Cid|Cids]).
+caminho_aux(Ini, [Adj|Cids], Dist, DistF, CamF) :-
+	estrada(Intern, Adj, D1),
+	not(pertence(Intern, [Adj|Cids])),
+	D2 is Dist + D1,
+	caminho_aux(Ini, [Intern, Adj|Cids], D2, DistF, CamF).
 
-rota(X,Y,Km) :- ligado(X,Y,Km).
-rota(X,Y,Km) :- ligado(X,Z,C1),        
-	rota(Z,Y,C2),
-	Km is C1 + C2.
-	
-inserir_final([], Y, [Y]).         
-inserir_final([I|R], Y, [I|R1]) :- 
-    inserir_final(R, Y, R1).  	
-	
-exibe(Inicio, Termino, Km) :- findall(X, rota(Inicio, Termino, X), Result), min(Result, Km).
+%modo(+,+,?)
+melhor_rota(Inicio, Termino, Km) :- 
+	findall(X, caminho(Inicio, Termino, X, _), Result), min(Result, Km).
+
+%modo(+,+)	
+exibe(Inicio, Termino) :- 
+	findall((X - Cam), caminho(Inicio, Termino, X, Cam), Result), 
+	imprime(Result),
+	write('melhor rota possui --> '), melhor_rota(Inicio, Termino, Km), write(Km), write('km'), nl,
+	findall(Z, caminho(Inicio, Termino, Km, Z), Result1),
+	write('rotas disponíveis: '), 
+	imprime(Result1).	
