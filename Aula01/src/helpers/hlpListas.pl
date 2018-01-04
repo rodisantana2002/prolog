@@ -12,9 +12,10 @@ ex: modo(+,-)
 
 */
 
+
 %modo(+)
-imprime([]) :- nl.
-imprime([X|Y]) :- 
+imprime([]) :- !.
+imprime([X|Y]) :-
 	write(X), nl, 
   	imprime(Y).
   	
@@ -42,7 +43,8 @@ count([_|Cau], N) :-
 	count(Cau, N1),
 	N is N1 + 1.
 	
-%modo(+,?)	
+%modo(+,?)
+max([],0).	
 max([Elem], Elem).
 max([Elem,Y|Cau], Max) :- 
 	Elem >= Y, 
@@ -51,6 +53,7 @@ max([Elem,Y|Cau], Max) :-
 max([_,Y|Cau], Max) :- max([Y|Cau],Max).	
 
 %modo(+,?)
+min([],0).
 min([Elem], Elem).
 min([Elem,Y|Cau], Min) :- 
 	Elem =< Y, 
