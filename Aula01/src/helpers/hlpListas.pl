@@ -73,10 +73,10 @@ obter_by_index(N, Elem, [_|Cau]) :-
 	obter_by_index(M, Elem, Cau), 	
 	N is M + 1.
 
-%modo()
+%modo(+,+,?)
 obter_sublista_by_index([], _, []).
 obter_sublista_by_index([Cab|Cau], L, [X|Y]) :- 
-	find_by_index(Cab, X, L),
+	obter_by_index(Cab, X, L),
 	obter_sublista_by_index(Cau, L, Y).
 
 %modo(?,+?) ou modo(+,?+)
@@ -154,9 +154,11 @@ encontrar_diffs(Lista1, Lista2, Result) :-
 	concatenar(Result1, Result2, Result).
 
 %modo(+,?)
+ordenar_simple([]):-!.
 ordenar_simple(Lista, Lista_ord) :- 
 	permutar_listas(Lista,Lista_ord),
-	ordenada(Lista_ord), !.	    
+	ordenada(Lista_ord), !.
+ordenada([]):-!.		    
 ordenada([_]).
 ordenada([X,Y|Z]) :-
 	maior(Y,X),
@@ -174,12 +176,16 @@ num_combinacoes(N, R, Num) :-
 	num_combinacoes(N1, R, Parcela2),
 	Num is Parcela1 + Parcela2.
 	
-%modo(+,+,-)
-combinacoes(0,[],[]).
-combinacoes(R,Lista,[Elem|T]) :-		
-	R1 is R - 1,
-	concatenar(_, [Elem|Resto], Lista),
-	combinacoes(R1, Resto, T).	
-	
+  	
+sub([],[]):-!.
+sub([Prim|Resto],[Prim|SubConj]) :-
+	sub(Resto,SubConj).
+sub([_|Resto],SubConj):-
+	sub(Resto,SubConj).
+
+com:-
+	findall(X, (sub([a,b,c,d], X)), Result1),
+	select([], Result1, Result2),
+	imprime(Result2).
 
 	
