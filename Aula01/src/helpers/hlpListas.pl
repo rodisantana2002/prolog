@@ -190,11 +190,18 @@ sub([Prim|Resto],[Prim|SubConj]) :-
 sub([_|Resto],SubConj):-
 	sub(Resto,SubConj).
 
-com:-	
-	numlist(1,10,Z),
-	findall(X, combinacoes(6, Z, X), Result1),
+%modo(+,+)
+combinar_elementos(Lista, Range):-	
+	findall(X, combinacoes(Range, Lista, X), Result1),
 	remover_duplicados(Result1,Result2),
-	imprime(Result2).
+	count(Result2, NumComb),
+	imprime(['------------------------------------------------------------------------', 
+		 '                      Bem Vindo ao Simulador Tabajara                   ',
+		 '------------------------------------------------------------------------']),		 
+	write('Serão geradas ('), write(NumComb), write(') combinações para os parametros informados.'), nl,
+        write('------------------------------------------------------------------------'), nl,	
+	imprime(Result2),
+        write('------------------------------------------------------------------------'), nl.
 
 %modo(+,+,?)	
 combinacoes(0, [], []).
