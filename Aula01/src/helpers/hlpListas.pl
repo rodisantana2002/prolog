@@ -183,8 +183,9 @@ sub([Prim|Resto],[Prim|SubConj]) :-
 sub([_|Resto],SubConj):-
 	sub(Resto,SubConj).
 
-com:-
-	findall(X, (sub([a,b,c,d], X)), Result1),
+com:-	
+	numlist(0,9,Z),
+	findall(X, (sub(Z, X)), Result1),
 	select([], Result1, Result2),
 	imprime(Result2).
 
