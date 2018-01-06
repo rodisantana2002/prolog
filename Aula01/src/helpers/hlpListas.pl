@@ -92,6 +92,12 @@ remover_all_elementos(Elem, [Elem1|Cau], [Elem1|Cau1]) :-
 	Elem \== Elem1,
 	remover_all_elementos(Elem, Cau, Cau1).
 
+%modo(+,?)
+remover_duplicados([],[]).
+remover_duplicados([Elem|Cau],[Elem|Cau1]):-
+	remover_all_elementos(Elem, Cau, Lista),
+	remover_duplicados(Lista,Cau1).
+
 %modo(?,?,?)
 inserir_inicio(Elem, Lista, [Elem|Lista]).
 
@@ -138,6 +144,7 @@ remover_aux(X, [X|Y],Y).
 remover_aux(X, [_|Cau], [_|Cau1]) :- 
 	remover_aux(X, Cau, Cau1).
 
+
 %modo(+,+,?)    
 encontrar_iguais([], _, []).
 encontrar_iguais([Cab|Cau], L, [Cab|U]) :- 
@@ -176,7 +183,7 @@ num_combinacoes(N, R, Num) :-
 	num_combinacoes(N1, R, Parcela2),
 	Num is Parcela1 + Parcela2.
 	
-  	
+%modo(+,?)  	
 sub([],[]):-!.
 sub([Prim|Resto],[Prim|SubConj]) :-
 	sub(Resto,SubConj).
@@ -184,9 +191,16 @@ sub([_|Resto],SubConj):-
 	sub(Resto,SubConj).
 
 com:-	
-	numlist(0,9,Z),
-	findall(X, (sub(Z, X)), Result1),
-	select([], Result1, Result2),
+	numlist(1,10,Z),
+	findall(X, combinacoes(6, Z, X), Result1),
+	remover_duplicados(Result1,Result2),
 	imprime(Result2).
 
-	
+%modo(+,+,?)	
+combinacoes(0, [], []).
+combinacoes(R, Conjunto,[Elem|T]):-
+	R1 is R - 1,
+	sub(Conjunto, [Elem|Resto]),
+	combinacoes(R1, Resto, T).
+		
+		
