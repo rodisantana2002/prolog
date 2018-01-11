@@ -1,3 +1,17 @@
+estrada(a,b,1).
+estrada(a,d,2).
+estrada(d,f,7).
+estrada(e,f,8).
+estrada(c,d,4).
+estrada(b,c,3).
+estrada(c,f,6).
+estrada(b,e,5).
+estrada(f,c,9).
+
+
+
+
+/*
 estrada(a,b,5).
 estrada(a,c,10).
 estrada(a,g,75).
@@ -13,3 +27,4 @@ estrada(a,f,15).
 %movimentos bidirecionais
 estrada(f,a,15).
 estrada(f,e,7).
+*/

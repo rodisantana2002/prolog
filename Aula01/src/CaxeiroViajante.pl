@@ -44,4 +44,5 @@ pesquisar_rotas(Inicio, Termino) :-
 	write('------------------------------------------------------------'), nl,
 	findall(-P, caminho(Inicio, Termino, KmP, P), ResultPior),
 	imprime(ResultPior),
-	write('------------------------------------------------------------').
+	write('------------------------------------------------------------'),
+	!.

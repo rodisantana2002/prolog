@@ -18,12 +18,14 @@ combinar_elementos(Lista, Range):-
 	remover_duplicados(Result1,Result2),
 	count(Result2, NumComb),
 	imprime(['------------------------------------------------------------------------', 
-		 '                      Bem Vindo ao Simulador Tabajara                   ',
+		 '                   Bem Vindo ao Simulador Tabajara                      ',
 		 '------------------------------------------------------------------------']),		 
-	write('Serão geradas ('), write(NumComb), write(') combinações para os parametros informados.'), nl,
+	write('Serão geradas ('), write(NumComb), write(') combinações para os parametros informados'), nl,
+	write('para um Range de ('), write(Range), write(').'), nl,
         write('------------------------------------------------------------------------'), nl,	
 	imprime(Result2),
-        write('------------------------------------------------------------------------'), nl.
+        write('------------------------------------------------------------------------'), nl, 
+        !.
 
 %modo(+,+,?)	
 combinacoes(0, [], []).
