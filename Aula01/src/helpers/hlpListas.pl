@@ -12,7 +12,6 @@ ex: modo(+,-)
 
 */
 
-
 %modo(+)
 imprime([]) :- !.
 imprime([X|Y]) :-
@@ -160,6 +159,13 @@ encontrar_diffs(Lista1, Lista2, Result) :-
 	findall(Y, (pertence(Y,Lista2), not(pertence(Y, Lista1))), Result2),	
 	concatenar(Result1, Result2, Result).
 
+%modo(+,?)  	--concatena duas listas
+sub([],[]):-!.
+sub([Prim|Resto],[Prim|SubConj]) :-
+	sub(Resto,SubConj).
+sub([_|Resto],SubConj):-
+	sub(Resto,SubConj).
+
 %modo(+,?)
 ordenar_simple([]):-!.
 ordenar_simple(Lista, Lista_ord) :- 
@@ -171,43 +177,12 @@ ordenada([X,Y|Z]) :-
 	maior(Y,X),
 	ordenada([Y|Z]).
 maior(X,Y):-X>Y.
-
-%modo(+,+,-)
-num_combinacoes(_, 0, 1) :-!.
-num_combinacoes(N, N, 1) :-!.
-num_combinacoes(N, R, Num) :-
-	N > R,
-	N1 is N - 1,
-	R1 is R - 1,
-	num_combinacoes(N1, R1, Parcela1),
-	num_combinacoes(N1, R, Parcela2),
-	Num is Parcela1 + Parcela2.
-	
-%modo(+,?)  	
-sub([],[]):-!.
-sub([Prim|Resto],[Prim|SubConj]) :-
-	sub(Resto,SubConj).
-sub([_|Resto],SubConj):-
-	sub(Resto,SubConj).
-
-%modo(+,+)
-combinar_elementos(Lista, Range):-	
-	findall(X, combinacoes(Range, Lista, X), Result1),
-	remover_duplicados(Result1,Result2),
-	count(Result2, NumComb),
-	imprime(['------------------------------------------------------------------------', 
-		 '                      Bem Vindo ao Simulador Tabajara                   ',
-		 '------------------------------------------------------------------------']),		 
-	write('Serão geradas ('), write(NumComb), write(') combinações para os parametros informados.'), nl,
-        write('------------------------------------------------------------------------'), nl,	
-	imprime(Result2),
-        write('------------------------------------------------------------------------'), nl.
-
-%modo(+,+,?)	
-combinacoes(0, [], []).
-combinacoes(R, Conjunto,[Elem|T]):-
-	R1 is R - 1,
-	sub(Conjunto, [Elem|Resto]),
-	combinacoes(R1, Resto, T).
 		
-		
+%modo(+,-)
+bubblesort(Lista, Result) :-
+	concatenar(Elem, [Cab, Cau|Cauda], Lista),
+	maior(Cab,Cau),
+	concatenar(Elem, [Cau, Cab|Cauda], Lista1),
+	bubblesort(Lista1, Result), 
+	!.			
+bubblesort(Lista, Lista).	
