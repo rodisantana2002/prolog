@@ -46,3 +46,8 @@ pesquisar_rotas(Inicio, Termino) :-
 	imprime(ResultPior),
 	write('------------------------------------------------------------'),
 	!.
+	
+gettime(Time, Atom) :-
+	stamp_date_time(Time, Date, 'UTC'),
+	format_time(atom(Atom), '%a, %d %b %Y %T GMT', Date, posix).
+	
