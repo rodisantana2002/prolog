@@ -34,3 +34,8 @@ ache_tudo :-
     write('.... e ....'), write(C2),
     nl,
     fail.	    
+    
+    
+mostrar([X|Cau]) :-
+	write('Cabeça'), write([X]), nl,
+	write('Cauda'), write([Cau]).    
