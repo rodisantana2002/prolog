@@ -1,12 +1,28 @@
-estrada(a,b,1).
-estrada(a,d,2).
-estrada(d,f,7).
-estrada(e,f,8).
-estrada(c,d,4).
-estrada(b,c,3).
-estrada(c,f,6).
-estrada(b,e,5).
-estrada(f,c,9).
+estrada(a,b,91).
+estrada(b,a,91).
+
+estrada(b,e,31).
+estrada(e,b,31).
+
+estrada(c,b,44).
+estrada(b,c,44).
+
+estrada(a,c,62).
+estrada(c,a,62).
+
+estrada(c,e,45).
+estrada(e,c,45).
+
+estrada(e,d,83).
+estrada(d,e,83).
+
+estrada(d,a,55).
+estrada(a,d,55).
+
+estrada(c,d,52).
+estrada(d,c,52).
+
+
 
 
 

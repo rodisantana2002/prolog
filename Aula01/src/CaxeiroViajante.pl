@@ -17,7 +17,7 @@ caminho_aux(Ini, [Adj|Cids], Dist, DistF, CamF) :-
 melhor_rota(Inicio, Termino, Km) :- 
 	findall(X, caminho(Inicio, Termino, X, _), Result), min(Result, Km).
 
-%modo(+,+,?)
+%modo(+,+,?)pes
 pior_rota(Inicio, Termino, Km) :- 
 	findall(X, caminho(Inicio, Termino, X, _), Result), max(Result, Km).
 
