@@ -26,16 +26,16 @@ veste(X, Cor1, Cor2) :-
     cor(Cor2),
     tem_uma_cor(X,Cor1), \+ (nao_pode_vestir(X,Cor2)) , Cor1 \== Cor2, \+ (
     ((Cor1 = vermelho), (Cor2 = amarelo)); ((Cor1 = amarelo), (Cor2 = vermelho))).
-	    
+
 ache_tudo :-
     veste(X,C1,C2),
     write(X),
     write('   ====> '), write(C1),
     write('.... e ....'), write(C2),
     nl,
-    fail.	    
-    
-    
+    fail.
+
+
 mostrar([X|Cau]) :-
 	write('Cabeça'), write([X]), nl,
-	write('Cauda'), write([Cau]).    
+	write('Cauda'), write([Cau]).
