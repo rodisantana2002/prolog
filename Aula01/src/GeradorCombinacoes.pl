@@ -13,21 +13,21 @@ num_combinacoes(N, R, Num) :-
 	Num is Parcela1 + Parcela2.
 	
 %modo(+,+)
-combinar_elementos(Lista, Range):-	
+combinar_elementos(Lista, Range):-
 	findall(X, combinacoes(Range, Lista, X), Result1),
 	remover_duplicados(Result1,Result2),
 	count(Result2, NumComb),
-	imprime(['------------------------------------------------------------------------', 
+	imprime(['------------------------------------------------------------------------',
 		 '                   Bem Vindo ao Simulador Tabajara                      ',
-		 '------------------------------------------------------------------------']),		 
+		 '------------------------------------------------------------------------']),
 	write('Serão geradas ('), write(NumComb), write(') combinações para os parametros informados'), nl,
-	write('para um Range de ('), write(Range), write(').'), nl,
-        write('------------------------------------------------------------------------'), nl,	
+	write('para um Range de ('), write(Range), write(') elementos.'), nl,
+        write('------------------------------------------------------------------------'), nl,
 	imprime(Result2),
-        write('------------------------------------------------------------------------'), nl, 
+        write('------------------------------------------------------------------------'), nl,
         !.
 
-%modo(+,+,?)	
+%modo(+,+,?)
 combinacoes(0, [], []).
 combinacoes(R, Conjunto,[Elem|T]):-
 	R1 is R - 1,
