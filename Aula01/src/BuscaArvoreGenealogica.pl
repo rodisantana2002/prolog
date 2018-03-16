@@ -17,7 +17,7 @@ avos(Y, X):-
 irmao(X, Y):- pais(Z,X), !, pais(Z,Y), X\=Y.
 
 irmaos(X,Y):-
-	findall(Y, (pais(Z,X), !, pais(Z,Y), X\=Y), Result),
+	findall(Y, irmao(X,Y), Result),
 	print4("Os irmãos de ", X, " são: ", Result).
 
 % (+, -)
