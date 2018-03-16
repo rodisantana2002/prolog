@@ -27,8 +27,3 @@ pais(ivanilde, willian).
 pais(ivanilde, weslei).
 pais(vilce, simone).
 pais(vilce, robson).
-
-% irmao(ines, ivanete).
-% irmao(ines, ivonei).
-% irmao(ines, ivanilde).
-% irmao(ines, elton).
